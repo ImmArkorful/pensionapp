@@ -1,0 +1,45 @@
+:root {
+  /* PH Securities Color Palette */
+  --ph-bright-blue: #2563eb;
+  --ph-dark-blue: #1e40af;
+  --ph-light-blue: #3b82f6;
+  --ph-accent-blue: #60a5fa;
+  --ph-text-dark: #0f172a;
+  --ph-text-medium: #1e293b;
+  --ph-text-light: #64748b;
+  --ph-bg-gradient-start: #f8fafc;
+  --ph-bg-gradient-end: #ffffff;
+  --ph-white: #ffffff;
+  --ph-border: #e2e8f0;
+  --ph-shadow: rgba(15, 23, 42, 0.08);
+
+  font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  line-height: 1.4;
+  font-weight: 400;
+  color: var(--ph-text-dark);
+  background: linear-gradient(180deg, var(--ph-bg-gradient-start) 0%, var(--ph-bg-gradient-end) 100%);
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: linear-gradient(180deg, var(--ph-bg-gradient-start) 0%, var(--ph-bg-gradient-end) 100%);
+  min-height: 100vh;
+}
+
+a {
+  color: inherit;
+}
+
+button {
+  font-family: inherit;
+}

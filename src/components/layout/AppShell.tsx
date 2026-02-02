@@ -3,9 +3,9 @@ import type { ReactNode } from 'react'
 import { useAppState } from '../../context/AppStateContext'
 
 const navItems = [
-  { to: '/dashboard', label: 'Dashboard' },
-  { to: '/dashboard/statements', label: 'Statements', disabled: true },
-  { to: '/dashboard/settings', label: 'Settings', disabled: true },
+  { to: '/dashboard', label: 'Dashboard', end: true },
+  { to: '/dashboard/statements', label: 'Statements' },
+  { to: '/dashboard/settings', label: 'Settings' },
 ]
 
 export const AppShell = ({ children }: { children: ReactNode }) => {
@@ -23,10 +23,14 @@ export const AppShell = ({ children }: { children: ReactNode }) => {
         </div>
 
         <nav>
-          {navItems.map(({ to, label, disabled }) => (
-            <NavLink key={label} to={to} className={({ isActive }) => (disabled ? 'nav-link disabled' : `nav-link ${isActive ? 'active' : ''}`)}>
+          {navItems.map(({ to, label, end }) => (
+            <NavLink
+              key={label}
+              to={to}
+              end={end}
+              className={({ isActive }) => `nav-link ${isActive ? 'active' : ''}`}
+            >
               {label}
-              {disabled && <span className="soon-pill">Soon</span>}
             </NavLink>
           ))}
         </nav>

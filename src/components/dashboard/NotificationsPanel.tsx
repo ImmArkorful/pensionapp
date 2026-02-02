@@ -1,8 +1,12 @@
+import { useState } from 'react'
 import { formatDistanceToNow } from 'date-fns'
 import { useAppState } from '../../context/AppStateContext'
 
 export const NotificationsPanel = () => {
   const { notifications } = useAppState()
+  const [showAll, setShowAll] = useState(false)
+
+  const visibleNotifications = showAll ? notifications : notifications.slice(0, 4)
 
   return (
     <section className="panel notifications">
@@ -11,11 +15,15 @@ export const NotificationsPanel = () => {
           <h3>Notifications & reminders</h3>
           <p>Stay on top of due dates, interest postings and updates</p>
         </div>
-        <button className="link-btn">See all</button>
+        {notifications.length > 4 && (
+          <button className="link-btn" type="button" onClick={() => setShowAll((prev) => !prev)}>
+            {showAll ? 'View less' : 'View all notifications'}
+          </button>
+        )}
       </header>
 
       <ul>
-        {notifications.slice(0, 4).map((item) => (
+        {visibleNotifications.map((item) => (
           <li key={item.id} className={`notification ${item.type}`}>
             <div>
               <strong>{item.title}</strong>

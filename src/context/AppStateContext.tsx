@@ -1,4 +1,4 @@
-import { createContext, useContext, useState } from 'react'
+import { createContext, useContext, useEffect, useState } from 'react'
 import type { ReactNode } from 'react'
 import { differenceInCalendarDays } from 'date-fns'
 import type {
@@ -27,6 +27,7 @@ interface AppActions {
   simulateContribution: (amount?: number) => void
   toggleReminder: (id: string) => void
   linkAccount: (channel: 'momo' | 'bank', value: boolean) => void
+  updateUserProfile: (updates: Partial<UserProfile>) => void
 }
 
 type AppContextValue = AppState & AppActions
@@ -35,9 +36,24 @@ const AppStateContext = createContext<AppContextValue | undefined>(undefined)
 
 const delay = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms))
 const uniqueId = () => `id-${Math.random().toString(16).slice(2)}`
+const STORAGE_KEY = 'pensionapp:user'
 
 export const AppProvider = ({ children }: { children: ReactNode }) => {
-  const [user, setUser] = useState<UserProfile | null>(null)
+  const [user, setUser] = useState<UserProfile | null>(() => {
+    // Hydrate synchronously so protected routes see user on first render
+    try {
+      const saved = typeof window !== 'undefined' ? localStorage.getItem(STORAGE_KEY) : null
+      if (saved) {
+        const parsed = JSON.parse(saved) as UserProfile | null
+        if (parsed && typeof parsed === 'object') {
+          return parsed
+        }
+      }
+    } catch {
+      // ignore storage errors in demo app
+    }
+    return null
+  })
   const [contributions, setContributions] = useState<Contribution[]>(mockContributions)
   const [statements, setStatements] = useState<StatementEntry[]>(mockStatements)
   const [notifications, setNotifications] = useState<Notification[]>(mockNotifications)
@@ -50,6 +66,11 @@ export const AppProvider = ({ children }: { children: ReactNode }) => {
     const success = phone.trim() === mockUser.phone && otp === '123456'
     if (success) {
       setUser(mockUser)
+      try {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(mockUser))
+      } catch {
+        // ignore
+      }
     }
     setIsAuthenticating(false)
     return success
@@ -57,6 +78,11 @@ export const AppProvider = ({ children }: { children: ReactNode }) => {
 
   const logout = () => {
     setUser(null)
+    try {
+      localStorage.removeItem(STORAGE_KEY)
+    } catch {
+      // ignore
+    }
   }
 
   const register = async (payload: RegistrationPayload) => {
@@ -77,6 +103,30 @@ export const AppProvider = ({ children }: { children: ReactNode }) => {
       joinedOn: new Date().toISOString(),
     }
     setUser(generatedUser)
+    try {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(generatedUser))
+    } catch {
+      // ignore
+    }
+    // Apply mandatory GHS 5 setup fee on signup
+    setStatements((prev) => {
+      const previousBalance = prev[0]?.balance ?? 0
+      const fee = 5
+      const newBalance = Number((previousBalance - fee).toFixed(2))
+      return [
+        {
+          id: uniqueId(),
+          date: new Date().toISOString().slice(0, 10),
+          description: 'Account setup fee',
+          debit: fee,
+          credit: 0,
+          balance: newBalance,
+          channel: 'system',
+        },
+        ...prev,
+      ]
+    })
+
     setIsAuthenticating(false)
     setNotifications((prev) => [
       {
@@ -85,6 +135,13 @@ export const AppProvider = ({ children }: { children: ReactNode }) => {
         body: `Thanks for signing your Tier 3 mandate. First debit scheduled on the ${generatedUser.dueDay}th.`,
         timestamp: new Date().toISOString(),
         type: 'info',
+      },
+      {
+        id: uniqueId(),
+        title: 'Setup fee charged',
+        body: 'A one-time GHS 5 account setup fee has been applied to your Tier 3 account.',
+        timestamp: new Date().toISOString(),
+        type: 'payment',
       },
       ...prev,
     ])
@@ -135,6 +192,22 @@ export const AppProvider = ({ children }: { children: ReactNode }) => {
   const linkAccount = (channel: 'momo' | 'bank', value: boolean) => {
     if (!user) return
     setUser({ ...user, accountLinks: { ...user.accountLinks, [channel]: value } })
+    try {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify({ ...user, accountLinks: { ...user.accountLinks, [channel]: value } }))
+    } catch {
+      // ignore
+    }
+  }
+
+  const updateUserProfile = (updates: Partial<UserProfile>) => {
+    if (!user) return
+    const next: UserProfile = { ...user, ...updates }
+    setUser(next)
+    try {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(next))
+    } catch {
+      // ignore
+    }
   }
 
   const value: AppContextValue = {
@@ -150,6 +223,7 @@ export const AppProvider = ({ children }: { children: ReactNode }) => {
     simulateContribution,
     toggleReminder,
     linkAccount,
+    updateUserProfile,
   }
 
   return <AppStateContext.Provider value={value}>{children}</AppStateContext.Provider>

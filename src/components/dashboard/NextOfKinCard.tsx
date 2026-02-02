@@ -1,7 +1,9 @@
+import { useNavigate } from 'react-router-dom'
 import { useAppState } from '../../context/AppStateContext'
 
 export const NextOfKinCard = () => {
   const { user } = useAppState()
+  const navigate = useNavigate()
   if (!user) return null
 
   return (
@@ -11,7 +13,9 @@ export const NextOfKinCard = () => {
           <h3>Next of kin</h3>
           <p>Update anytime from settings</p>
         </div>
-        <button className="link-btn">Change</button>
+        <button className="link-btn" type="button" onClick={() => navigate('/dashboard/settings#next-of-kin')}>
+          Change
+        </button>
       </header>
 
       <div className="kin-details">

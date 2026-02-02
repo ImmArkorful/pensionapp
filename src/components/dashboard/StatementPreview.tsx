@@ -5,15 +5,42 @@ export const StatementPreview = () => {
   const { statements } = useAppState()
   const recent = statements.slice(0, 4)
 
+  const handleDownloadCsv = () => {
+    if (!statements.length) return
+
+    const header = ['Date', 'Description', 'Channel', 'Credit', 'Balance']
+    const rows = statements.map((entry) => [
+      format(new Date(entry.date), 'yyyy-MM-dd'),
+      entry.description,
+      entry.channel,
+      entry.credit ? entry.credit.toFixed(2) : '',
+      entry.balance.toString(),
+    ])
+
+    const csvContent = [header, ...rows]
+      .map((row) => row.map((cell) => `"${String(cell).replace(/"/g, '""')}"`).join(','))
+      .join('\n')
+
+    const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' })
+    const url = URL.createObjectURL(blob)
+    const link = document.createElement('a')
+    link.href = url
+    link.setAttribute('download', 'statements.csv')
+    document.body.appendChild(link)
+    link.click()
+    document.body.removeChild(link)
+    URL.revokeObjectURL(url)
+  }
+
   return (
     <section className="panel statements">
       <header className="panel-header">
         <div>
           <h3>Statement preview</h3>
-          <p>Detailed statement available for download</p>
+          <p>Download a CSV of your full statement</p>
         </div>
-        <button className="primary ghost" onClick={() => window.print()}>
-          Print / Save
+        <button className="primary ghost" type="button" onClick={handleDownloadCsv}>
+          Download CSV
         </button>
       </header>
 

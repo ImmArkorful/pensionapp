@@ -3,7 +3,7 @@ import type { FormEvent } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { useAppState } from '../context/AppStateContext'
 
-const steps = ['Contact', 'Verification', 'Plan setup', 'Next of kin'] as const
+const steps = ['Contact', 'Verification', 'Plan setup', 'Next of kin', 'Initial charge'] as const
 
 export const RegisterPage = () => {
   const { register, isAuthenticating } = useAppState()
@@ -64,7 +64,7 @@ export const RegisterPage = () => {
           <Link to="/" className="auth-logo">
             <img src="/logo.jpeg" alt="PH Securities" />
           </Link>
-          <p className="eyebrow">4 quick steps</p>
+          <p className="eyebrow">5 quick steps</p>
           <h1>Sign up for Tier 3</h1>
           <p>The flow mimics KYC, OTP verification, account linking and mandate setup.</p>
         </header>
@@ -163,8 +163,20 @@ export const RegisterPage = () => {
                 Contact phone
                 <input value={form.nextOfKinPhone} onChange={(e) => updateField('nextOfKinPhone', e.target.value)} required />
               </label>
+              <button type="button" className="primary" onClick={() => setCurrentStep(4)}>
+                Continue to GHS 5 charge
+              </button>
+            </>
+          )}
+
+          {currentStep === 4 && (
+            <>
+              <p className="info-box">
+                A mandatory one-time <strong>GHS 5</strong> setup charge will be applied to your account when you complete
+                sign up. This appears as an account setup fee in your statement.
+              </p>
               <button type="submit" className="primary" disabled={isAuthenticating}>
-                {isAuthenticating ? 'Creating profile...' : 'Sign agreement'}
+                {isAuthenticating ? 'Processing charge…' : 'Confirm GHS 5 charge & finish'}
               </button>
             </>
           )}

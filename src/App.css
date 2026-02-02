@@ -15,14 +15,14 @@ body {
 }
 
 .auth-card {
-  width: min(640px, 100%);
+  width: min(760px, 100%);
   background: #fff;
-  padding: 2.5rem;
+  padding: 3rem;
   border-radius: 1.5rem;
   box-shadow: 0 20px 55px rgba(15, 23, 42, 0.12);
   display: flex;
   flex-direction: column;
-  gap: 1.5rem;
+  gap: 2rem;
 }
 
 .auth-logo {
@@ -202,10 +202,17 @@ button.primary.ghost {
 }
 
 .nav-link {
+  text-decoration: none;
   padding: 0.5rem 0.75rem;
   border-radius: 999px;
   color: #475569;
   font-weight: 600;
+}
+
+.nav-link:link,
+.nav-link:visited,
+.nav-link:hover {
+  text-decoration: none;
 }
 
 .nav-link.active {
@@ -392,6 +399,67 @@ button.primary.ghost {
   gap: 0.5rem;
 }
 
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(15, 23, 42, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 50;
+}
+
+.modal {
+  background: #ffffff;
+  border-radius: 1.25rem;
+  padding: 1.5rem 1.75rem;
+  width: min(420px, 100% - 2rem);
+  box-shadow: 0 25px 60px rgba(15, 23, 42, 0.25);
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.modal-body {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.modal-helper {
+  margin: 0 0 0.25rem;
+  font-size: 0.9rem;
+  color: #64748b;
+}
+
+.modal-field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  font-size: 0.9rem;
+}
+
+.modal-field input {
+  padding: 0.6rem 0.8rem;
+  border-radius: 0.75rem;
+  border: 1px solid #e2e8f0;
+  font-size: 0.9rem;
+}
+
+.modal-actions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 0.75rem;
+}
+
 .notifications ul,
 .reminders ul {
   list-style: none;
@@ -488,10 +556,223 @@ button.primary.ghost {
   border-bottom: 1px solid #f1f5f9;
 }
 
+.page-header {
+  margin-bottom: 1.5rem;
+}
+
+.page-header h1 {
+  margin: 0 0 0.25rem;
+  font-size: 1.75rem;
+}
+
+.page-header p {
+  margin: 0;
+  color: var(--ph-muted, #64748b);
+  font-size: 0.95rem;
+}
+
+.statements-page .panel-header {
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.statements-filters {
+  padding: 1rem 0;
+  border-bottom: 1px solid #f1f5f9;
+}
+
+.statements-filters .filter-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  gap: 1rem;
+}
+
+.statements-filters label {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: #334155;
+}
+
+.statements-filters input,
+.statements-filters select {
+  padding: 0.5rem 0.75rem;
+  border-radius: 0.5rem;
+  border: 1px solid #e2e8f0;
+  font-size: 0.9rem;
+  min-width: 140px;
+}
+
+.statements-table-wrap {
+  overflow-x: auto;
+}
+
+.statements td.empty-state {
+  text-align: center;
+  padding: 2rem;
+  color: #64748b;
+}
+
+.channel-badge {
+  display: inline-block;
+  padding: 0.2rem 0.6rem;
+  border-radius: 999px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-transform: capitalize;
+}
+
+.channel-badge.channel-momo {
+  background: #dcfce7;
+  color: #166534;
+}
+
+.channel-badge.channel-bank {
+  background: #dbeafe;
+  color: #1d4ed8;
+}
+
+.channel-badge.channel-system {
+  background: #f3e8ff;
+  color: #6b21a8;
+}
+
+@media print {
+  .no-print {
+    display: none !important;
+  }
+}
+
+.settings-section {
+  margin-bottom: 1.5rem;
+}
+
+.settings-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 0.75rem 1.5rem;
+}
+
+.setting-row {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+
+.setting-label {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: #64748b;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+}
+
+.setting-value {
+  font-size: 0.95rem;
+  color: #0f172a;
+}
+
+.setting-value.referral-code {
+  font-family: ui-monospace, monospace;
+  font-weight: 600;
+  color: var(--ph-dark-blue);
+}
+
+.setting-input-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.setting-input-row input {
+  flex: 1 1 140px;
+  padding: 0.5rem 0.75rem;
+  border-radius: 0.5rem;
+  border: 1px solid #e2e8f0;
+  font-size: 0.9rem;
+}
+
+.setting-row input.setting-value {
+  padding: 0.5rem 0.75rem;
+  border-radius: 0.5rem;
+  border: 1px solid #e2e8f0;
+  font-size: 0.9rem;
+}
+
+.profile-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.referral-row {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.copy-referral-btn:disabled {
+  opacity: 0.7;
+  cursor: default;
+}
+
+.settings-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.settings-list li {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.85rem 0;
+  border-bottom: 1px solid #f1f5f9;
+}
+
+.settings-list li:last-child {
+  border-bottom: none;
+}
+
+.settings-list li strong {
+  display: block;
+  margin-bottom: 0.15rem;
+}
+
+.settings-list li p {
+  margin: 0;
+  font-size: 0.875rem;
+  color: #64748b;
+}
+
 .next-of-kin .kin-details {
   background: #f8fafc;
   border-radius: 1rem;
   padding: 1rem;
+}
+
+.kin-field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  margin-bottom: 0.5rem;
+  font-size: 0.9rem;
+}
+
+.kin-field span {
+  font-weight: 600;
+  color: #64748b;
+}
+
+.kin-field input {
+  padding: 0.5rem 0.75rem;
+  border-radius: 0.5rem;
+  border: 1px solid #e2e8f0;
+  font-size: 0.9rem;
 }
 
 .referral {

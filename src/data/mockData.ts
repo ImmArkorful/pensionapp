@@ -35,7 +35,7 @@ export const mockContributions: Contribution[] = [
 export const mockStatements: StatementEntry[] = [
   {
     id: 'stmt-1',
-    date: '2024-12-25',
+    date: '2026-12-25',
     description: 'Monthly Tier 3 Contribution',
     debit: 0,
     credit: 600,
@@ -44,7 +44,7 @@ export const mockStatements: StatementEntry[] = [
   },
   {
     id: 'stmt-2',
-    date: '2024-11-25',
+    date: '2026-11-25',
     description: 'Monthly Tier 3 Contribution',
     debit: 0,
     credit: 500,
@@ -53,7 +53,7 @@ export const mockStatements: StatementEntry[] = [
   },
   {
     id: 'stmt-3',
-    date: '2024-10-25',
+    date: '2026-10-25',
     description: 'Interest Credit',
     debit: 0,
     credit: 20,
@@ -62,7 +62,7 @@ export const mockStatements: StatementEntry[] = [
   },
   {
     id: 'stmt-4',
-    date: '2024-10-25',
+    date: '2026-10-25',
     description: 'Monthly Tier 3 Contribution',
     debit: 0,
     credit: 800,

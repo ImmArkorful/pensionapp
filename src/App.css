@@ -107,22 +107,21 @@ button.primary.ghost {
 
 .stepper {
   display: flex;
-  gap: 1rem;
+  gap: 1.25rem;
+  justify-content: space-between;
 }
 
 .step {
-  flex: 1;
-  background: #f5f6fb;
-  border-radius: 1rem;
-  padding: 0.6rem 0.8rem;
+  flex: 0 0 auto;
   display: flex;
+  flex-direction: column;
   align-items: center;
-  gap: 0.5rem;
+  gap: 0.4rem;
 }
 
 .step span {
-  width: 2rem;
-  height: 2rem;
+  width: 2.25rem;
+  height: 2.25rem;
   border-radius: 50%;
   background: #e2e8ff;
   display: grid;

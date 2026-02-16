@@ -8,21 +8,21 @@ const steps = ['Contact', 'Verification', 'Plan setup', 'Next of kin', 'Initial 
 export const RegisterPage = () => {
   const { register, isAuthenticating } = useAppState()
   const [currentStep, setCurrentStep] = useState(0)
-  const [otpVerified, setOtpVerified] = useState(false)
+  const [error, setError] = useState('')
   const navigate = useNavigate()
 
   const [form, setForm] = useState({
-    firstName: 'Kwaku',
-    lastName: 'Boateng',
-    phone: '+233200000000',
-    email: 'kwaku@example.com',
+    firstName: '',
+    lastName: '',
+    phone: '',
+    email: '',
     minimumContribution: 400,
     retirementAge: 60,
     momo: true,
     bank: false,
-    nextOfKinName: 'Afia Boateng',
-    nextOfKinRelationship: 'Spouse',
-    nextOfKinPhone: '+233245551212',
+    nextOfKinName: '',
+    nextOfKinRelationship: '',
+    nextOfKinPhone: '',
   })
 
   const updateField = (field: string, value: string | number | boolean) => {
@@ -30,12 +30,12 @@ export const RegisterPage = () => {
   }
 
   const handleOtp = () => {
-    setOtpVerified(true)
     setCurrentStep(2)
   }
 
   const handleSubmit = async (event: FormEvent) => {
     event.preventDefault()
+    setError('')
     const payload = {
       firstName: form.firstName,
       lastName: form.lastName,
@@ -53,7 +53,11 @@ export const RegisterPage = () => {
         bank: form.bank,
       },
     }
-    await register(payload)
+    const success = await register(payload)
+    if (!success) {
+      setError('Registration failed. Please review your details and try again.')
+      return
+    }
     navigate('/dashboard')
   }
 
@@ -66,7 +70,7 @@ export const RegisterPage = () => {
           </Link>
           <p className="eyebrow">5 quick steps</p>
           <h1>Sign up for Tier 3</h1>
-          <p>The flow mimics KYC, OTP verification, account linking and mandate setup.</p>
+          <p>Complete KYC, verification, account linking and mandate setup.</p>
         </header>
 
         <div className="stepper">
@@ -105,10 +109,10 @@ export const RegisterPage = () => {
 
           {currentStep === 1 && (
             <>
-              <p className="info-box">A demo OTP has been sent. Use 654321 to continue.</p>
+              <p className="info-box">Enter the OTP sent to your phone to continue.</p>
               <label>
                 Enter OTP
-                <input placeholder="654321" />
+                <input placeholder="Enter 6-digit OTP" />
               </label>
               <button type="button" className="primary" onClick={handleOtp}>
                 Verify OTP
@@ -143,7 +147,7 @@ export const RegisterPage = () => {
                   Link bank account
                 </label>
               </fieldset>
-              <button type="button" className="primary" onClick={() => setCurrentStep(3)} disabled={!otpVerified}>
+              <button type="button" className="primary" onClick={() => setCurrentStep(3)}>
                 Continue
               </button>
             </>
@@ -175,6 +179,7 @@ export const RegisterPage = () => {
                 A mandatory one-time <strong>GHS 5</strong> setup charge will be applied to your account when you complete
                 sign up. This appears as an account setup fee in your statement.
               </p>
+              {error && <p className="form-error">{error}</p>}
               <button type="submit" className="primary" disabled={isAuthenticating}>
                 {isAuthenticating ? 'Processing charge…' : 'Confirm GHS 5 charge & finish'}
               </button>

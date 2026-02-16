@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { daysUntilDebit, useAppState } from '../../context/AppStateContext'
 
 export const AutoDebitCard = () => {
-  const { user, simulateContribution, linkAccount } = useAppState()
+  const { user, addContribution, linkAccount } = useAppState()
   const [activeModal, setActiveModal] = useState<'momo' | 'bank' | null>(null)
   const [accountName, setAccountName] = useState('')
   const [accountNumber, setAccountNumber] = useState('')
@@ -19,10 +19,9 @@ export const AutoDebitCard = () => {
     setActiveModal(null)
   }
 
-  const handleSaveAccount = () => {
+  const handleSaveAccount = async () => {
     if (!activeModal) return
-    // In this demo we only toggle the linked state; details are not persisted
-    linkAccount(activeModal, true)
+    await linkAccount(activeModal, true)
     closeModal()
   }
 
@@ -58,8 +57,8 @@ export const AutoDebitCard = () => {
 
       <footer className="panel-footer">
         <p>Need to top up ahead of time?</p>
-        <button className="primary" onClick={() => simulateContribution()}>
-          Simulate manual top-up
+        <button className="primary" onClick={() => addContribution()}>
+          Make manual top-up
         </button>
       </footer>
 
@@ -79,8 +78,7 @@ export const AutoDebitCard = () => {
             </header>
             <div className="modal-body">
               <p className="modal-helper">
-                This is a demo flow. Enter any details below to mimic linking your{' '}
-                {activeModal === 'momo' ? 'mobile money wallet' : 'bank account'}.
+                Enter the details for your {activeModal === 'momo' ? 'mobile money wallet' : 'bank account'}.
               </p>
               <label className="modal-field">
                 <span>{activeModal === 'momo' ? 'Wallet provider' : 'Bank name'}</span>

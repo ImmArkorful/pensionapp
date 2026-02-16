@@ -5,16 +5,17 @@ import { useAppState } from '../context/AppStateContext'
 
 export const LoginPage = () => {
   const { login, isAuthenticating } = useAppState()
-  const [phone, setPhone] = useState('+233501234567')
-  const [otp, setOtp] = useState('123456')
+  const [phone, setPhone] = useState('')
+  const [otp, setOtp] = useState('')
   const [error, setError] = useState('')
   const navigate = useNavigate()
 
   const handleSubmit = async (event: FormEvent) => {
     event.preventDefault()
+    setError('')
     const success = await login(phone, otp)
     if (!success) {
-      setError('Invalid phone or OTP. Use the demo credentials shown.')
+      setError('Sign-in failed. Please confirm your phone and OTP, then try again.')
       return
     }
     navigate('/dashboard')
@@ -27,9 +28,9 @@ export const LoginPage = () => {
           <Link to="/" className="auth-logo">
             <img src="/logo.jpeg" alt="PH Securities" />
           </Link>
-          <p className="eyebrow">Demo credentials</p>
+          <p className="eyebrow">Secure sign-in</p>
           <h1>Sign in to your Tier 3 account</h1>
-          <p>Use the pre-filled details to mimic the OTP flow.</p>
+          <p>Enter your registered phone number and one-time password.</p>
         </header>
 
         <form onSubmit={handleSubmit} className="auth-form">
@@ -39,7 +40,7 @@ export const LoginPage = () => {
           </label>
 
           <label>
-            OTP code (demo: 123456)
+            OTP code
             <input value={otp} onChange={(e) => setOtp(e.target.value)} maxLength={6} required />
           </label>
 
@@ -52,7 +53,7 @@ export const LoginPage = () => {
 
         <footer>
           <p>
-            First time using the flow? <Link to="/register">Create a mock account</Link>
+            First time here? <Link to="/register">Create your account</Link>
           </p>
           <p style={{ marginTop: '0.5rem' }}>
             <Link to="/">← Back to Home</Link>

@@ -41,7 +41,10 @@ export const LoginPage = () => {
 
           <label>
             OTP code
-            <input value={otp} onChange={(e) => setOtp(e.target.value)} maxLength={6} required />
+            <input value={otp} onChange={(e) => setOtp(e.target.value)} maxLength={6} placeholder="Default for now: 123456" required />
+            <small style={{ color: 'var(--ph-text-light)', fontSize: '0.825rem', marginTop: '0.35rem', display: 'block' }}>
+              Current default OTP: 123456
+            </small>
           </label>
 
           {error && <p className="form-error">{error}</p>}

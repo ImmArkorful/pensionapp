@@ -109,10 +109,10 @@ export const RegisterPage = () => {
 
           {currentStep === 1 && (
             <>
-              <p className="info-box">Enter the OTP sent to your phone to continue.</p>
+              <p className="info-box">Enter the OTP sent to your phone to continue. For now, default OTP is 123456.</p>
               <label>
                 Enter OTP
-                <input placeholder="Enter 6-digit OTP" />
+                <input placeholder="Default for now: 123456" />
               </label>
               <button type="button" className="primary" onClick={handleOtp}>
                 Verify OTP

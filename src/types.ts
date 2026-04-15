@@ -1,4 +1,20 @@
 export type AccountLink = 'momo' | 'bank'
+export type PaymentMethod = 'momo' | 'bank'
+
+export interface PaymentDetails {
+  method: PaymentMethod
+  momo?: {
+    number: string
+    network: string
+    accountName: string
+  }
+  bank?: {
+    bankName: string
+    accountNumber: string
+    accountName: string
+    branchCode: string
+  }
+}
 
 export interface UserProfile {
   id: string
@@ -15,6 +31,7 @@ export interface UserProfile {
     phone: string
   }
   accountLinks: Record<AccountLink, boolean>
+  paymentDetails?: PaymentDetails | null
   dueDay: number
   referralCode: string
   joinedOn: string
@@ -69,4 +86,5 @@ export interface RegistrationPayload {
     momo: boolean
     bank: boolean
   }
+  paymentDetails?: PaymentDetails
 }

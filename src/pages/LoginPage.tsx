@@ -5,7 +5,8 @@ import { useAppState } from '../context/AppStateContext'
 
 export const LoginPage = () => {
   const { login, isAuthenticating } = useAppState()
-  const [phone, setPhone] = useState('')
+  const [authMethod, setAuthMethod] = useState<'phone' | 'email'>('phone')
+  const [identifier, setIdentifier] = useState('')
   const [otp, setOtp] = useState('')
   const [error, setError] = useState('')
   const navigate = useNavigate()
@@ -13,9 +14,13 @@ export const LoginPage = () => {
   const handleSubmit = async (event: FormEvent) => {
     event.preventDefault()
     setError('')
-    const success = await login(phone, otp)
+    if (otp.trim() !== '123456') {
+      setError('Invalid OTP. Use default OTP 123456.')
+      return
+    }
+    const success = await login(identifier.trim(), otp, authMethod)
     if (!success) {
-      setError('Sign-in failed. Please confirm your phone and OTP, then try again.')
+      setError('Sign-in failed. Please confirm your email/phone and OTP, then try again.')
       return
     }
     navigate('/dashboard')
@@ -34,9 +39,43 @@ export const LoginPage = () => {
         </header>
 
         <form onSubmit={handleSubmit} className="auth-form">
+          <div className="auth-method-group">
+            <p className="auth-method-label">Sign in with</p>
+            <div className="auth-method-picker" role="radiogroup" aria-label="Sign in method">
+              <button
+                type="button"
+                className={`auth-method-option ${authMethod === 'phone' ? 'active' : ''}`}
+                onClick={() => {
+                  setAuthMethod('phone')
+                  setIdentifier('')
+                }}
+                aria-pressed={authMethod === 'phone'}
+              >
+                Phone number
+              </button>
+              <button
+                type="button"
+                className={`auth-method-option ${authMethod === 'email' ? 'active' : ''}`}
+                onClick={() => {
+                  setAuthMethod('email')
+                  setIdentifier('')
+                }}
+                aria-pressed={authMethod === 'email'}
+              >
+                Email address
+              </button>
+            </div>
+          </div>
+
           <label>
-            Phone number
-            <input value={phone} onChange={(e) => setPhone(e.target.value)} required />
+            {authMethod === 'email' ? 'Email address' : 'Phone number'}
+            <input
+              type={authMethod === 'email' ? 'email' : 'text'}
+              value={identifier}
+              onChange={(e) => setIdentifier(e.target.value)}
+              placeholder={authMethod === 'email' ? 'you@example.com' : '+233501234567'}
+              required
+            />
           </label>
 
           <label>

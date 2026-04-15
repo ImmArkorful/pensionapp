@@ -63,6 +63,14 @@ body {
   background: #f9fafc;
 }
 
+.auth-form select {
+  border-radius: 0.8rem;
+  border: 1px solid #d4d8e3;
+  padding: 0.8rem 1rem;
+  font-size: 1rem;
+  background: #f9fafc;
+}
+
 button.primary {
   border: none;
   border-radius: 999px;
@@ -103,6 +111,51 @@ button.primary.ghost {
 .form-error {
   color: #dc2626;
   font-size: 0.9rem;
+}
+
+.auth-method-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+}
+
+.auth-method-label {
+  margin: 0;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #0f172a;
+}
+
+.auth-method-picker {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.45rem;
+  background: #f1f5f9;
+  border: 1px solid #dbe3ee;
+  border-radius: 0.9rem;
+  padding: 0.35rem;
+}
+
+.auth-method-option {
+  border: none;
+  border-radius: 0.65rem;
+  padding: 0.65rem 0.85rem;
+  font-weight: 600;
+  font-size: 0.92rem;
+  color: #334155;
+  background: transparent;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.auth-method-option:hover {
+  background: rgba(255, 255, 255, 0.6);
+}
+
+.auth-method-option.active {
+  background: #ffffff;
+  color: var(--ph-dark-blue);
+  box-shadow: 0 6px 20px rgba(15, 23, 42, 0.08);
 }
 
 .stepper {
@@ -788,5 +841,26 @@ button.primary.ghost {
 
   .auth-card {
     padding: 1.5rem;
+  }
+
+  .stepper {
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.75rem 0.5rem;
+  }
+
+  .step {
+    flex: 1 1 calc(33.333% - 0.5rem);
+    min-width: 88px;
+  }
+
+  .step small {
+    text-align: center;
+    font-size: 0.75rem;
+    line-height: 1.2;
+  }
+
+  .auth-method-picker {
+    grid-template-columns: 1fr;
   }
 }

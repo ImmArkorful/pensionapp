@@ -32,10 +32,11 @@ async function request<T>(path: string, init?: RequestInit): Promise<T> {
 
 export const api = {
   clearToken,
-  async login(phone: string, otp: string) {
+  async login(identifier: string, otp: string, method: 'phone' | 'email') {
+    const payload = method === 'email' ? { email: identifier, otp } : { phone: identifier, otp }
     const res = await request<{ token: string; user: UserProfile }>('/api/auth/login', {
       method: 'POST',
-      body: JSON.stringify({ phone, otp }),
+      body: JSON.stringify(payload),
     })
     setToken(res.token)
     return res

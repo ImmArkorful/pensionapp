@@ -21,9 +21,9 @@ interface AppState {
 }
 
 interface AppActions {
-  login: (phone: string, otp: string) => Promise<boolean>
+  login: (identifier: string, otp: string, method: 'phone' | 'email') => Promise<boolean>
   logout: () => void
-  register: (payload: RegistrationPayload) => Promise<boolean>
+  register: (payload: RegistrationPayload) => Promise<{ success: boolean; error?: string }>
   addContribution: (amount?: number) => Promise<void>
   toggleReminder: (id: string) => Promise<void>
   linkAccount: (channel: 'momo' | 'bank', value: boolean) => Promise<void>
@@ -34,6 +34,10 @@ type AppContextValue = AppState & AppActions
 
 const AppStateContext = createContext<AppContextValue | undefined>(undefined)
 const STORAGE_KEY = 'pensionapp:user'
+const getErrorMessage = (error: unknown) => {
+  if (error instanceof Error && error.message) return error.message
+  return 'Request failed. Please try again.'
+}
 
 export const AppProvider = ({ children }: { children: ReactNode }) => {
   const [user, setUser] = useState<UserProfile | null>(() => {
@@ -73,10 +77,10 @@ export const AppProvider = ({ children }: { children: ReactNode }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user?.id])
 
-  const login = async (phone: string, otp: string) => {
+  const login = async (identifier: string, otp: string, method: 'phone' | 'email') => {
     setIsAuthenticating(true)
     try {
-      const res = await api.login(phone, otp)
+      const res = await api.login(identifier, otp, method)
       setUser(res.user)
       localStorage.setItem(STORAGE_KEY, JSON.stringify(res.user))
       await refreshAppData()
@@ -109,9 +113,9 @@ export const AppProvider = ({ children }: { children: ReactNode }) => {
       setUser(res.user)
       localStorage.setItem(STORAGE_KEY, JSON.stringify(res.user))
       await refreshAppData()
-      return true
-    } catch {
-      return false
+      return { success: true }
+    } catch (error) {
+      return { success: false, error: getErrorMessage(error) }
     } finally {
       setIsAuthenticating(false)
     }

@@ -1,6 +1,7 @@
 import type { RegistrationPayload, UserProfile } from '../types'
 
-const API_BASE_URL = import.meta.env.VITE_API_BASE_URL ?? 'https://api.penappgh.com/'
+/** Base URL without trailing slash; paths must start with `/` */
+const API_BASE_URL = String(import.meta.env.VITE_API_BASE_URL ?? 'https://api.penappgh.com').replace(/\/+$/, '')
 const TOKEN_KEY = 'pensionapp:token'
 
 const getToken = () => (typeof window !== 'undefined' ? localStorage.getItem(TOKEN_KEY) : null)

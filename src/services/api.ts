@@ -1,6 +1,6 @@
 import type { RegistrationPayload, UserProfile } from '../types'
 
-const API_BASE_URL = import.meta.env.VITE_API_BASE_URL ?? 'http://128.140.74.215:3002'
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL ?? 'https://api.penappgh.com/'
 const TOKEN_KEY = 'pensionapp:token'
 
 const getToken = () => (typeof window !== 'undefined' ? localStorage.getItem(TOKEN_KEY) : null)

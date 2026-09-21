@@ -1,0 +1,546 @@
+/* ── PRODUCTS PAGE ── */
+
+.products-page {
+  min-height: 100vh;
+  background: linear-gradient(180deg, var(--ph-bg-gradient-start) 0%, var(--ph-bg-gradient-end) 100%);
+}
+
+/* ── NAV ── */
+.products-nav {
+  background: var(--ph-white);
+  border-bottom: 1px solid var(--ph-border);
+  padding: 1rem 0;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  box-shadow: 0 6px 18px rgba(15, 23, 42, 0.08);
+}
+.products-nav-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.products-logo-img { height: 50px; width: auto; object-fit: contain; }
+.products-nav-links {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+.products-nav-links a {
+  text-decoration: none;
+  color: var(--ph-text-dark);
+  font-weight: 600;
+  font-size: 0.95rem;
+  transition: color 0.2s;
+}
+.products-nav-links a:hover { color: #4a7ab5; }
+.products-nav-active { color: #c97a3a !important; }
+.products-nav-login { padding: 0.5rem 1rem; border-radius: 8px; }
+.products-nav-cta {
+  background: #1a3a5c !important;
+  color: var(--ph-white) !important;
+  padding: 0.5rem 1.25rem !important;
+  border-radius: 8px;
+  box-shadow: 0 8px 18px rgba(26, 58, 92, 0.2);
+  transition: background 0.2s !important;
+}
+.products-nav-cta:hover { background: #2d5580 !important; }
+
+/* ── HERO ── */
+.products-hero {
+  background: linear-gradient(135deg, #0f2744 0%, #2d5580 100%);
+  padding: 6rem 2rem 5rem;
+  text-align: center;
+}
+.products-hero-inner { max-width: 700px; margin: 0 auto; }
+.products-eyebrow {
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #e8a265;
+  margin-bottom: 1rem;
+}
+.products-hero-title {
+  font-size: clamp(2.2rem, 5vw, 3.5rem);
+  font-weight: 800;
+  color: var(--ph-white);
+  line-height: 1.15;
+  letter-spacing: -0.5px;
+  margin-bottom: 1.5rem;
+}
+.products-highlight { color: #e8a265; }
+.products-hero-sub {
+  font-size: 1.1rem;
+  color: #a8c0d8;
+  line-height: 1.75;
+  max-width: 560px;
+  margin: 0 auto;
+}
+
+/* ── SHARED ── */
+.products-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+.products-section-eyebrow {
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #c97a3a;
+  text-align: center;
+  margin-bottom: 0.5rem;
+}
+.products-section-title {
+  font-size: clamp(1.8rem, 3vw, 2.4rem);
+  font-weight: 800;
+  color: var(--ph-text-dark);
+  text-align: center;
+  margin-bottom: 3rem;
+  letter-spacing: -0.3px;
+}
+
+/* ── PRODUCT CARDS ── */
+.products-section {
+  background: var(--ph-white);
+  padding: 5rem 0;
+}
+.products-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2.5rem;
+}
+.products-card {
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 8px 30px var(--ph-shadow);
+  border: 1px solid var(--ph-border);
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+.products-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 20px 50px rgba(15, 23, 42, 0.18);
+}
+.products-card-visual {
+  height: 240px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  text-decoration: none;
+  overflow: hidden;
+}
+.products-card-emoji { font-size: 5rem; z-index: 2; position: relative; }
+.products-card-badge {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  background: rgba(255, 255, 255, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  color: white;
+  font-size: 0.75rem;
+  font-weight: 700;
+  padding: 0.3rem 0.8rem;
+  border-radius: 50px;
+  backdrop-filter: blur(4px);
+  transition: background 0.2s;
+}
+.products-card-visual:hover .products-card-badge {
+  background: rgba(255, 255, 255, 0.3);
+}
+.products-card-body {
+  padding: 2rem;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  background: var(--ph-white);
+}
+.products-card-label {
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #c97a3a;
+  margin-bottom: 0.4rem;
+}
+.products-card-name {
+  font-size: 1.7rem;
+  font-weight: 900;
+  color: var(--ph-text-dark);
+  margin-bottom: 0.3rem;
+  letter-spacing: -0.3px;
+}
+.products-card-tagline {
+  font-size: 0.92rem;
+  font-style: italic;
+  color: #4a7ab5;
+  margin-bottom: 1rem;
+}
+.products-card-desc {
+  font-size: 0.92rem;
+  color: var(--ph-text-light);
+  line-height: 1.75;
+  margin-bottom: 1.25rem;
+}
+.products-features {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 1.75rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  flex: 1;
+}
+.products-features li {
+  font-size: 0.88rem;
+  color: var(--ph-text-light);
+  display: flex;
+  gap: 0.6rem;
+  align-items: flex-start;
+  line-height: 1.5;
+}
+.products-features li::before {
+  content: '✓';
+  color: #c97a3a;
+  font-weight: 700;
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+.products-visit-btn {
+  display: block;
+  text-align: center;
+  color: white;
+  font-weight: 700;
+  padding: 0.9rem;
+  border-radius: 10px;
+  text-decoration: none;
+  font-size: 0.95rem;
+  transition: all 0.2s;
+  box-shadow: 0 6px 18px rgba(15, 23, 42, 0.2);
+}
+.products-visit-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 25px rgba(15, 23, 42, 0.25);
+  filter: brightness(1.1);
+}
+
+/* ── WHY ── */
+.products-why {
+  background: var(--ph-bg-gradient-start);
+  padding: 5rem 0;
+}
+.products-why-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.5rem;
+}
+.products-why-card {
+  background: var(--ph-white);
+  border-radius: 16px;
+  padding: 1.75rem;
+  border: 1px solid var(--ph-border);
+  box-shadow: 0 4px 14px var(--ph-shadow);
+  text-align: center;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+.products-why-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 16px 35px rgba(15, 23, 42, 0.14);
+}
+.products-why-icon { font-size: 2rem; margin-bottom: 0.75rem; }
+.products-why-title {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--ph-text-dark);
+  margin-bottom: 0.5rem;
+}
+.products-why-text {
+  font-size: 0.85rem;
+  color: var(--ph-text-light);
+  line-height: 1.65;
+}
+
+/* ── STATS ── */
+.products-stats {
+  background: linear-gradient(135deg, #0f2744 0%, #2d5580 100%);
+  padding: 4rem 0;
+}
+.products-stats-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+  text-align: center;
+}
+.products-stat-num {
+  font-size: 2.5rem;
+  font-weight: 900;
+  color: #e8a265;
+  margin-bottom: 0.5rem;
+}
+.products-stat-label {
+  font-size: 0.85rem;
+  color: #a8c0d8;
+  line-height: 1.55;
+  max-width: 220px;
+  margin: 0 auto;
+}
+
+/* ── FAQ ── */
+.products-faq {
+  background: var(--ph-white);
+  padding: 5rem 0;
+}
+.products-faq-list {
+  max-width: 720px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+.products-faq-item {
+  padding: 1.5rem 0;
+  border-bottom: 1px solid var(--ph-border);
+}
+.products-faq-q {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--ph-text-dark);
+  margin-bottom: 0.6rem;
+}
+.products-faq-a {
+  font-size: 0.92rem;
+  color: var(--ph-text-light);
+  line-height: 1.7;
+}
+
+/* ── CTA ── */
+.products-cta {
+  background: linear-gradient(135deg, #c97a3a 0%, #a8612a 100%);
+  padding: 5rem 2rem;
+  text-align: center;
+}
+.products-cta h2 {
+  font-size: clamp(1.8rem, 3vw, 2.5rem);
+  font-weight: 800;
+  color: white;
+  margin-bottom: 1rem;
+}
+.products-cta p {
+  color: rgba(255, 255, 255, 0.85);
+  font-size: 1.05rem;
+  margin-bottom: 2rem;
+}
+.products-cta-btn {
+  display: inline-block;
+  background: white;
+  color: #c97a3a;
+  font-weight: 700;
+  padding: 0.9rem 2rem;
+  border-radius: 10px;
+  text-decoration: none;
+  font-size: 1rem;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.12);
+  transition: all 0.2s;
+}
+.products-cta-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 14px 30px rgba(0, 0, 0, 0.18);
+}
+
+/* ── FOOTER ── */
+.products-footer {
+  background: #0f172a;
+  color: #94a3b8;
+  padding: 2rem;
+}
+.products-footer-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+.products-footer p { font-size: 0.85rem; margin-bottom: 0.4rem; }
+.products-footer-note { font-size: 0.875rem !important; margin-top: 0.5rem; color: #cbd5f5; }
+.products-footer-links { display: flex; gap: 1.5rem; }
+.products-footer-links a {
+  color: #94a3b8;
+  text-decoration: none;
+  font-size: 0.85rem;
+  transition: color 0.2s;
+}
+.products-footer-links a:hover { color: #e8a265; }
+
+/* ── RESPONSIVE ── */
+@media (max-width: 900px) {
+  .products-grid { grid-template-columns: 1fr; }
+  .products-why-grid { grid-template-columns: 1fr 1fr; }
+  .products-stats-grid { grid-template-columns: 1fr; gap: 2rem; }
+  .products-nav-links a:not(.products-nav-login):not(.products-nav-cta) { display: none; }
+}
+@media (max-width: 600px) {
+  .products-why-grid { grid-template-columns: 1fr; }
+  .products-footer-container { flex-direction: column; text-align: center; }
+}
+
+export const ProductsPage = () => {
+  return (
+    <div className="products-page">
+
+      <nav className="products-nav">
+        <div className="products-nav-container">
+          <Link to="/">
+            <img src="/logo.jpeg" alt="PH Securities" className="products-logo-img" />
+          </Link>
+          <div className="products-nav-links">
+            <Link to="/about">About</Link>
+            <Link to="/careers">Careers</Link>
+            <Link to="/products" className="products-nav-active">Products</Link>
+            <Link to="/faq">FAQ</Link>
+            <Link to="/login" className="products-nav-login">Sign In</Link>
+            <Link to="/register" className="products-nav-cta">Get Started</Link>
+          </div>
+        </div>
+      </nav>
+
+      <section className="products-hero">
+        <div className="products-hero-inner">
+          <p className="products-eyebrow">Our Platforms</p>
+          <h1 className="products-hero-title">
+            Two Products.
+            <span className="products-highlight"> One Mission.</span>
+          </h1>
+          <p className="products-hero-sub">
+            PH Securities offers two powerful platforms to help every Ghanaian
+            invest in their pension — starting today, no matter their income level.
+          </p>
+        </div>
+      </section>
+
+      <section className="products-section">
+        <div className="products-container">
+          <div className="products-grid">
+            {products.map((product) => (
+              <div className="products-card" key={product.id}>
+                
+                  href={product.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={`products-card-visual ${product.cardClass}`}
+                >
+                  <span className="products-card-emoji">{product.emoji}</span>
+                  <span className="products-card-badge">Visit Site</span>
+                </a>
+                <div className="products-card-body">
+                  <p className="products-card-label">{product.label}</p>
+                  <h2 className="products-card-name">{product.name}</h2>
+                  <p className="products-card-tagline">{product.tagline}</p>
+                  <p className="products-card-desc">{product.description}</p>
+                  <ul className="products-features">
+                    {product.features.map((f) => (
+                      <li key={f}>{f}</li>
+                    ))}
+                  </ul>
+                  
+                    href={product.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className={`products-visit-btn ${product.btnClass}`}
+                  >
+                    Visit {product.name}
+                  </a>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="products-why">
+        <div className="products-container">
+          <p className="products-section-eyebrow">Why It Matters</p>
+          <h2 className="products-section-title">Why Every Year Counts</h2>
+          <div className="products-why-grid">
+            {whyItems.map((item) => (
+              <div className="products-why-card" key={item.title}>
+                <div className="products-why-icon">{item.emoji}</div>
+                <h4 className="products-why-title">{item.title}</h4>
+                <p className="products-why-text">{item.text}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="products-stats">
+        <div className="products-container">
+          <div className="products-stats-grid">
+            <div className="products-stat">
+              <div className="products-stat-num">4x</div>
+              <div className="products-stat-label">Starting at 25 vs 45 can grow your pension 4x for the same monthly contribution</div>
+            </div>
+            <div className="products-stat">
+              <div className="products-stat-num">GHS 200</div>
+              <div className="products-stat-label">Minimum monthly contribution to open a PH Securities pension plan</div>
+            </div>
+            <div className="products-stat">
+              <div className="products-stat-num">12%</div>
+              <div className="products-stat-label">Average illustrative annual return on PH Securities pension portfolios</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section className="products-faq">
+        <div className="products-container">
+          <p className="products-section-eyebrow">Common Questions</p>
+          <h2 className="products-section-title">Frequently Asked Questions</h2>
+          <div className="products-faq-list">
+            {faqs.map((faq) => (
+              <div className="products-faq-item" key={faq.q}>
+                <h4 className="products-faq-q">{faq.q}</h4>
+                <p className="products-faq-a">{faq.a}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="products-cta">
+        <div className="products-container">
+          <h2>Ready to start saving?</h2>
+          <p>Open your pension account today and take the first step toward a beautiful old age.</p>
+          <Link to="/register" className="products-cta-btn">Open Your Pension Account</Link>
+        </div>
+      </section>
+
+      <footer className="products-footer">
+        <div className="products-footer-container">
+          <div>
+            <p>2025 PH Securities. All rights reserved.</p>
+            <p className="products-footer-note">
+              Regulated by the National Pensions Regulatory Authority (NPRA).
+              This scheme is managed by licensed trustees in compliance with
+              Ghana pension regulations.
+            </p>
+          </div>
+          <div className="products-footer-links">
+            <Link to="/faq">FAQ</Link>
+            <Link to="/newsletter">Newsletter</Link>
+            <Link to="/login">Sign In</Link>
+          </div>
+        </div>
+      </footer>
+
+    </div>
+  )
+}

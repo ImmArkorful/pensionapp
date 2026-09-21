@@ -77,6 +77,9 @@ export const LandingPage = () => {
             <img src="/logo.jpeg" alt="PH Securities" className="logo-image" />
           </Link>
           <div className="nav-links">
+            <Link to="/about">About</Link>
+            <Link to="/careers">Careers</Link>
+            <Link to="/products">Products</Link>
             <Link to="/faq">FAQ</Link>
             <Link to="/login" className="nav-login">Sign In</Link>
             <Link to="/register" className="nav-cta">Get Started</Link>
@@ -185,6 +188,7 @@ export const LandingPage = () => {
           </div>
           <div className="footer-links">
             <Link to="/faq">FAQ</Link>
+            <Link to="/newsletter">Newsletter</Link>
             <Link to="/login">Sign In</Link>
           </div>
         </div>

@@ -1,0 +1,80 @@
+/* Slim scrolling exchange-rate ticker (PH Securities navy + orange) */
+.fx-bar {
+  display: flex;
+  align-items: center;
+  background: #0b1f4b;
+  color: #ffffff;
+  font-size: 0.8rem;
+  border-top: 2px solid #f47c20;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+/* Fixed label on the left, stays put while rates scroll behind it */
+.fx-bar__label {
+  position: relative;
+  z-index: 1;
+  background: #0b1f4b;
+  padding: 0.5rem 1rem 0.5rem 1.25rem;
+  font-weight: 700;
+  color: #f47c20;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  font-size: 0.7rem;
+  flex-shrink: 0;
+}
+
+.fx-bar__window {
+  flex: 1;
+  overflow: hidden;
+  /* soft fade at both edges */
+  mask-image: linear-gradient(to right, transparent, #000 4%, #000 96%, transparent);
+  -webkit-mask-image: linear-gradient(to right, transparent, #000 4%, #000 96%, transparent);
+}
+
+/* Two copies of the list side by side; moving left by half loops seamlessly */
+.fx-bar__track {
+  display: flex;
+  width: max-content;
+  animation: fx-scroll 40s linear infinite; /* bigger number = slower */
+}
+.fx-bar:hover .fx-bar__track {
+  animation-play-state: paused; /* pause when someone hovers to read */
+}
+
+.fx-bar__list {
+  display: flex;
+  gap: 2rem;
+  list-style: none;
+  margin: 0;
+  padding: 0.5rem 2rem 0.5rem 0;
+}
+
+.fx-bar__code {
+  font-weight: 700;
+  opacity: 0.7;
+  margin-right: 0.2rem;
+}
+
+.fx-bar__meta {
+  font-size: 0.7rem;
+  opacity: 0.6;
+}
+.fx-bar__meta a {
+  color: inherit;
+}
+
+@keyframes fx-scroll {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
+/* Respect visitors who have turned off motion in their system settings */
+@media (prefers-reduced-motion: reduce) {
+  .fx-bar__track {
+    animation: none;
+  }
+  .fx-bar__window {
+    overflow-x: auto;
+  }
+}

@@ -1,5 +1,7 @@
 import { Link } from 'react-router-dom'
 import './LandingPage.css'
+import CurrencyRates from '../components/CurrencyRates'
+import StockTicker from '../components/StockTicker';
 
 const featureItems = [
   {
@@ -86,7 +88,7 @@ export const LandingPage = () => {
           </div>
         </div>
       </nav>
-
+      <StockTicker />
       <main className="landing-main">
         <section className="hero hero-with-banner" aria-label="Ghanaian families planning for retirement">
           <div className="banner-container">
@@ -177,7 +179,7 @@ export const LandingPage = () => {
           </div>
         </section>
       </main>
-
+      <CurrencyRates />
       <footer className="landing-footer">
         <div className="footer-container">
           <div>

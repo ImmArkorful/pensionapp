@@ -1,0 +1,82 @@
+/* Scrolling Ghana Stock Exchange ticker */
+.stock {
+  display: flex;
+  align-items: center;
+  background: #0b1f4b;
+  color: #ffffff;
+  font-size: 0.8rem;
+  border-bottom: 2px solid #f47c20;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.stock__label {
+  position: relative;
+  z-index: 1;
+  background: #f47c20;
+  color: #0b1f4b;
+  padding: 0.5rem 0.9rem;
+  font-weight: 700;
+  font-size: 0.7rem;
+  letter-spacing: 0.08em;
+  flex-shrink: 0;
+}
+
+.stock__window {
+  flex: 1;
+  overflow: hidden;
+  mask-image: linear-gradient(to right, transparent, #000 3%, #000 97%, transparent);
+  -webkit-mask-image: linear-gradient(to right, transparent, #000 3%, #000 97%, transparent);
+}
+
+.stock__track {
+  display: flex;
+  width: max-content;
+  animation: stock-scroll 90s linear infinite; /* bigger number = slower */
+}
+.stock:hover .stock__track {
+  animation-play-state: paused;
+}
+
+.stock__list {
+  display: flex;
+  gap: 2rem;
+  list-style: none;
+  margin: 0;
+  padding: 0.5rem 2rem 0.5rem 1rem;
+}
+.stock__list li {
+  display: flex;
+  align-items: baseline;
+  gap: 0.4rem;
+}
+
+.stock__name {
+  font-weight: 700;
+}
+.stock__price {
+  opacity: 0.85;
+}
+
+.stock__change {
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+.stock__change--up   { color: #3ddc84; }
+.stock__change--down { color: #ff6b6b; }
+.stock__change--flat { color: #9aa6c4; }
+
+.stock__meta {
+  font-size: 0.7rem;
+  opacity: 0.55;
+}
+
+@keyframes stock-scroll {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .stock__track { animation: none; }
+  .stock__window { overflow-x: auto; }
+}
